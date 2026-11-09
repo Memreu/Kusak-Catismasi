@@ -9,9 +9,9 @@ Kullanım:
 
 Neden xlsx?
     SPSS dosyasındaki `OrtSipariş` (aylık sipariş sıklığı) değişkeninde "3-5 Kez" ve
-    "9-11 Kez" yanıtları aynı koda (4) birleşmiş durumda. Yanıt tablosu verilirse her
+    "9-11 Kez" yanıtları aynı kodla (4) kaydedilmiştir. Yanıt tablosu verilirse her
     SPSS satırı, 21 Likert maddesinin birebir eşleşmesiyle orijinal form yanıtına
-    bağlanır ve sipariş sıklığı düzeltilir. Eşleşmeyen satırlarda bu değişken boş bırakılır.
+    bağlanır ve sipariş sıklığı ayrıştırılır. Eşleşmeyen satırlarda bu değişken boş bırakılır.
 """
 from __future__ import annotations
 

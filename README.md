@@ -35,7 +35,6 @@
 - [Adım adım notebook](#adım-adım-notebook)
 - [İki dilde analiz: Python ve R](#iki-dilde-analiz-python-ve-r)
 - [Kurulum ve çalıştırma](#kurulum-ve-çalıştırma)
-- [Yeniden analiz notları](#yeniden-analiz-notları)
 - [Klasör yapısı](#klasör-yapısı)
 - [Sınırlılıklar](#sınırlılıklar)
 - [Araştırmacılar](#araştırmacılar)
@@ -162,7 +161,7 @@ Tüm analiz, açıklamaları ve yorumlarıyla birlikte tek bir defterde: [`noteb
 |---|---|---|
 | 🐍 Python | [`analysis/python/pls_sem.py`](analysis/python/pls_sem.py) | Sıfırdan yazılmış PLS-SEM: Mode A, yol ağırlıklandırma şeması, R², f², ρc, AVE, HTMT, Fornell-Larcker, VIF, bootstrap ile yol ve dolaylı etki testleri. SmartPLS sonuçlarıyla (VIF, f²) birebir uyumlu |
 | 🐍 Python | [`analysis/python/kusak_analiz.py`](analysis/python/kusak_analiz.py) | Tüm hipotez testleri, çok gruplu PLS, önem-performans haritası, güç analizi ve grafikler; sonuçları Markdown tablolarına ve JSON'a yazar |
-| 🐍 Python | [`analysis/python/veri_hazirla.py`](analysis/python/veri_hazirla.py) | SPSS verisini anonim analiz verisine dönüştürür, kodlama hatasını yanıt tablosuyla düzeltir |
+| 🐍 Python | [`analysis/python/veri_hazirla.py`](analysis/python/veri_hazirla.py) | SPSS verisini anonim analiz verisine dönüştürür ve sipariş sıklığı kodlarını yanıt tablosuyla doğrular |
 | 🐍 Python | [`analysis/python/sentetik_veri.py`](analysis/python/sentetik_veri.py) | Gizliliği koruyan sentetik veri (Gauss kopula) |
 | 📊 R | [`analysis/R/cfa_sem.R`](analysis/R/cfa_sem.R) | `lavaan` ile doğrulayıcı faktör analizi, kovaryans tabanlı SEM, dolaylı etkiler ve kuşaklar arası ölçme değişmezliği; `psych` ile güvenilirlik |
 
@@ -187,17 +186,6 @@ Ham veriye erişimi olan araştırmacılar `--gercek` bayrağıyla gerçek sonu�
 
 > 🔒 **Veri gizliliği:** Katılımcılara verilerin yalnızca bilimsel amaçla kullanılacağı ve kimlik bilgilerinin gizli tutulacağı taahhüt edildiği için ham veri paylaşılmaz. Repodaki [`data/sentetik_veri.csv`](data/sentetik_veri.csv), gerçek verinin dağılım ve korelasyon yapısını taklit eden ancak hiçbir gerçek katılımcıya karşılık gelmeyen sentetik bir veri setidir. Yalnızca toplu sonuçlar (`results/`) gerçek veriden üretilmiştir.
 
-## Yeniden analiz notları
-
-Analizlerin bağımsız olarak yeniden kurulması sırasında ders raporundaki sonuçların büyük çoğunluğu birebir doğrulandı. Öne çıkan farklar şunlar:
-
-- SPSS dosyasında **sipariş sıklığı** değişkeninin iki kategorisi ("3-5" ve "9-11 Kez") aynı koda birleşmişti; yanıt tablosuyla düzeltildi. Düzeltmeden sonra kuşak × sipariş sıklığı ilişkisi sınırda kaldı (p = ,052).
-- Raporda bazı R² değerleri olduğundan yüksek yazılmıştı (ör. PLS-SEM'de sadakat için 0,634 yerine 0,431). Katsayılar ve hipotez kararları büyük ölçüde değişmiyor.
-- H6a (fiyat değeri × ekonomik algı) moderasyonu anlamlı çıktı.
-- 10 yanıt araştırma evreninin (18+) dışında kalan katılımcılara aitti; bu yanıtlar çıkarıldığında kuşak farkları anlamlı kalıyor.
-
-Tam liste: [`results/rapor_karsilastirma.md`](results/rapor_karsilastirma.md)
-
 ## Klasör yapısı
 
 ```
@@ -218,8 +206,7 @@ Tam liste: [`results/rapor_karsilastirma.md`](results/rapor_karsilastirma.md)
 │   ├── tablolar/                  # Sonuç tabloları (Markdown)
 │   ├── grafikler/
 │   ├── R/sonuclar.md
-│   ├── sonuclar.json
-│   └── rapor_karsilastirma.md
+│   └── sonuclar.json
 ├── Anket Formu.docx               # Uygulanan anketin tam metni
 ├── Kaynakça.docx                  # 40 akademik kaynak (APA)
 ├── requirements.txt
@@ -231,6 +218,7 @@ Tam liste: [`results/rapor_karsilastirma.md`](results/rapor_karsilastirma.md)
 - **Örneklem:** Kartopu ve kolayda örnekleme; katılımcıların yarıdan fazlası öğrenci ve örneklem İstanbul, Eskişehir ve Bursa'da yoğunlaşıyor. Sonuçlar Türkiye geneline genellenirken dikkatli olunmalı.
 - **Kesitsel tasarım:** Alışkanlık gibi zamanla gelişen yapılar için boylamsal veri daha uygun olur; yol katsayıları nedensellik kanıtı değildir.
 - **Ölçüm:** Duygusal değer, fiyat değeri ve sadakat ölçeklerinin α değerleri 0,60–0,70 arasında; CB-SEM model uyumu sınırda. Kötü ekonomik algı grubu küçük (n = 19).
+- **Yaş:** 10 yanıt 18 yaş altı katılımcılara ait; bu yanıtlar çıkarıldığında kuşak farkları anlamlı kalıyor (duyarlılık analizi: [`06b_t_kusak_18_ustu.md`](results/tablolar/06b_t_kusak_18_ustu.md)).
 - **Ölçme değişmezliği:** Metrik değişmezlik eşiği çok az aşılıyor (ΔCFI = −0,012); kuşak ortalamalarının karşılaştırılması temkinli yorumlanmalı.
 
 ## Araştırmacılar

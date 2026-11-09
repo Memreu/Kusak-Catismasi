@@ -45,4 +45,4 @@ python analysis/python/veri_hazirla.py --sav Genel_Spss.sav --xlsx "Yanıt Tablo
 # → data/private/analiz_verisi.csv (git'e eklenmez)
 ```
 
-Bu adım SPSS dosyasındaki sipariş sıklığı kodlama hatasını yanıt tablosuyla düzeltir (bkz. [rapor karşılaştırması](../results/rapor_karsilastirma.md)).
+Bu adım, SPSS dosyasında aynı kodla kaydedilmiş "3-5" ve "9-11 Kez" sipariş sıklığı yanıtlarını yanıt tablosuyla ayrıştırır.

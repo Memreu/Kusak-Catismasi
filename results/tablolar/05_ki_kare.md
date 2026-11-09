@@ -7,4 +7,4 @@
 | Kuşak × indirimin belirleyici olması | 236 | 2.717 |    1 | 0.099 |      0.107 |                       0.000 |
 | Şehir büyüklüğü × uygulama           | 236 | 3.406 |    4 | 0.492 |      0.120 |                      20.000 |
 
-Sipariş sıklığı, SPSS dosyasındaki kodlama hatası düzeltilerek kullanılmıştır (bkz. README).
+Sipariş sıklığı 5 kategoriyle (0-2, 3-5, 6-8, 9-11, 12+ kez/ay) kullanılmıştır.

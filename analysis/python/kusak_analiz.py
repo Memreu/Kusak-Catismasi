@@ -130,7 +130,7 @@ def main(gercek: bool, n_boot: int) -> None:
                      "Cramér V": v, "beklenen < 5 olan hücre %": 100 * (exp < 5).mean()})
     chi = pd.DataFrame(rows)
     md(chi, tab / "05_ki_kare.md", "Ki-kare bağımsızlık testleri",
-       "Sipariş sıklığı, SPSS dosyasındaki kodlama hatası düzeltilerek kullanılmıştır (bkz. README).")
+       "Sipariş sıklığı 5 kategoriyle (0-2, 3-5, 6-8, 9-11, 12+ kez/ay) kullanılmıştır.")
     R["ki_kare"] = chi.set_index("test")[["χ²", "sd", "p", "Cramér V"]].round(3).to_dict(orient="index")
     zr = pd.crosstab(d.kusak, d.indirim_onemli, normalize="index")["Evet"]
     R["indirim_onemli_oran"] = zr.round(3).to_dict()
