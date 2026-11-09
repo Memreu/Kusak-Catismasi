@@ -16,8 +16,6 @@ import json
 from pathlib import Path
 
 import matplotlib
-
-matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -52,6 +50,16 @@ plt.rcParams.update({"figure.dpi": 110, "savefig.dpi": 110, "axes.spines.top": F
 
 def p_fmt(p: float) -> str:
     return "< .001" if p < 0.001 else f"{p:.3f}".replace("0.", ".", 1)
+
+
+def _bitir(fig, path=None) -> None:
+    """Grafiği kaydet (path verilirse) veya notebook'ta göster."""
+    fig.tight_layout()
+    if path is None:
+        plt.show()
+    else:
+        fig.savefig(path, bbox_inches="tight", facecolor="white")
+        plt.close(fig)
 
 
 def p_lbl(p: float) -> str:
@@ -307,7 +315,7 @@ def main(gercek: bool, n_boot: int) -> None:
 
 
 # --------------------------------------------------------------------------- #
-def grafik_model(pls, boot, path):
+def grafik_model(pls, boot, path=None):
     pos = {"PERF": (0.08, 0.72), "CABA": (0.08, 0.28), "DUYG": (0.45, 0.72), "FIY": (0.45, 0.28),
            "ALS": (0.45, 0.02), "SAD": (0.85, 0.45)}
     fig, ax = plt.subplots(figsize=(11, 6.2))
@@ -337,10 +345,10 @@ def grafik_model(pls, boot, path):
     ax.set_title("PLS-SEM yapısal model: standartlaştırılmış yol katsayıları")
     ax.text(0.5, -0.11, "* p < .05  ** p < .01  *** p < .001 · ok kalınlığı katsayıyla orantılı",
             ha="center", fontsize=9, color=GREY)
-    fig.tight_layout(); fig.savefig(path, bbox_inches="tight", facecolor="white"); plt.close(fig)
+    _bitir(fig, path)
 
 
-def grafik_kusak(d, t_kusak, path):
+def grafik_kusak(d, t_kusak, path=None):
     fig, ax = plt.subplots(figsize=(11, 4.6))
     keys = list(BLOCKS); x = np.arange(len(keys)); w = 0.38
     for i, (g, col) in enumerate([("Z", ORANGE), ("Diğer", BLUE)]):
@@ -355,10 +363,10 @@ def grafik_kusak(d, t_kusak, path):
     ax.set_xticks(x, [NAMES[k].replace(" ", "\n") for k in keys]); ax.set_ylim(1, 7.6)
     ax.set_ylabel("Ortalama (1–7)"); ax.legend(loc="upper right", ncol=2)
     ax.set_title("Kuşaklara göre yapı ortalamaları (%95 GA)")
-    fig.tight_layout(); fig.savefig(path, bbox_inches="tight", facecolor="white"); plt.close(fig)
+    _bitir(fig, path)
 
 
-def grafik_makas_eko(d, slopes, path):
+def grafik_makas_eko(d, slopes, path=None):
     fig, ax = plt.subplots(1, 2, figsize=(13, 4.6))
     for g, col, mk in [("Kadın", PURPLE, "o"), ("Erkek", GREEN, "s")]:
         s = d[d.cinsiyet == g].groupby("kusak").SAD.agg(["mean", "std", "count"]).loc[["Z", "Diğer"]]
@@ -378,10 +386,10 @@ def grafik_makas_eko(d, slopes, path):
                    label=f"{g} (n={r.n}): β = {r['β (duygusal değer)']:.2f}, {p_lbl(r['p (duygusal değer)'])}")
     ax[1].set_xlabel("Duygusal değer"); ax[1].set_ylabel("Sadakat"); ax[1].legend(fontsize=9)
     ax[1].set_title("Ekonomik algıya göre duygusal değer → sadakat")
-    fig.tight_layout(); fig.savefig(path, bbox_inches="tight", facecolor="white"); plt.close(fig)
+    _bitir(fig, path)
 
 
-def grafik_siklik(an, path):
+def grafik_siklik(an, path=None):
     fig, ax = plt.subplots(figsize=(8, 4.2))
     g = an.groupby("siparis_sikligi").ALS.agg(["mean", "std", "count"])
     ci = 1.96 * g["std"] / np.sqrt(g["count"])
@@ -391,10 +399,10 @@ def grafik_siklik(an, path):
     ax.set_xticks(list(SIKLIK), [f"{v}\nkez/ay" for v in SIKLIK.values()])
     ax.set_ylabel("Alışkanlık ortalaması (1–7)"); ax.set_ylim(1, 7)
     ax.set_title("Sipariş sıklığı arttıkça alışkanlık artıyor")
-    fig.tight_layout(); fig.savefig(path, bbox_inches="tight", facecolor="white"); plt.close(fig)
+    _bitir(fig, path)
 
 
-def grafik_htmt(pls, path):
+def grafik_htmt(pls, path=None):
     fig, ax = plt.subplots(1, 2, figsize=(13, 4.6))
     rel = pls.reliability.loc[list(BLOCKS)]
     x = np.arange(len(rel)); w = 0.27
@@ -414,7 +422,7 @@ def grafik_htmt(pls, path):
     ax[1].set_xticks(range(len(h)), list(BLOCKS)); ax[1].set_yticks(range(len(h)), list(BLOCKS))
     ax[1].grid(False); ax[1].set_title("HTMT (eşik < .85)")
     fig.colorbar(im, ax=ax[1], shrink=0.8)
-    fig.tight_layout(); fig.savefig(path, bbox_inches="tight", facecolor="white"); plt.close(fig)
+    _bitir(fig, path)
 
 
 # --------------------------------------------------------------------------- #
@@ -499,7 +507,7 @@ def ipma_analizi(d: pd.DataFrame, pls) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def grafik_mga(mga, path):
+def grafik_mga(mga, path=None):
     m = mga[~mga.yol.str.startswith("R²")].copy()
     fig, ax = plt.subplots(figsize=(11, 4.6))
     y = np.arange(len(m))[::-1]; h = 0.38
@@ -515,10 +523,10 @@ def grafik_mga(mga, path):
     ax.axvline(0, color="black", lw=0.8); ax.set_xlim(min(-0.1, m[["Z kuşağı β", "Diğer kuşaklar β"]].min().min() - 0.05), 1.0)
     ax.set_xlabel("Standartlaştırılmış yol katsayısı"); ax.legend(loc="lower right")
     ax.set_title("Model kuşaklarda aynı mı işliyor? (PLS çok gruplu analiz)")
-    fig.tight_layout(); fig.savefig(path, bbox_inches="tight", facecolor="white"); plt.close(fig)
+    _bitir(fig, path)
 
 
-def grafik_ipma(ipma, path):
+def grafik_ipma(ipma, path=None):
     fig, ax = plt.subplots(figsize=(8.5, 5.4))
     xm, ym = ipma["önem (toplam etki)"].mean(), ipma["performans (0-100)"].mean()
     ax.axvline(xm, color=GREY, ls="--", lw=1); ax.axhline(ym, color=GREY, ls="--", lw=1)
@@ -534,7 +542,7 @@ def grafik_ipma(ipma, path):
     ax.set_xlabel("Önem: sadakat üzerindeki toplam etki"); ax.set_ylabel("Performans (0–100)")
     ax.set_xlim(0, ipma["önem (toplam etki)"].max() * 1.3); ax.set_ylim(20, 90)
     ax.set_title("Önem-performans haritası: sadakat için nereye yatırım yapılmalı?")
-    fig.tight_layout(); fig.savefig(path, bbox_inches="tight", facecolor="white"); plt.close(fig)
+    _bitir(fig, path)
 
 
 if __name__ == "__main__":
@@ -542,4 +550,5 @@ if __name__ == "__main__":
     ap.add_argument("--gercek", action="store_true", help="data/private/analiz_verisi.csv kullan")
     ap.add_argument("--n-boot", type=int, default=2000)
     a = ap.parse_args()
+    plt.switch_backend("Agg")
     main(a.gercek, a.n_boot)

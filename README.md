@@ -9,6 +9,11 @@
   <a href="https://github.com/Memreu/Kusak-Catismasi/actions/workflows/analiz.yml"><img src="https://github.com/Memreu/Kusak-Catismasi/actions/workflows/analiz.yml/badge.svg" alt="analiz"></a>
 </p>
 
+<p align="center">
+  <a href="https://nbviewer.org/github/Memreu/Kusak-Catismasi/blob/main/notebooks/kusak_analizi.ipynb"><img src="https://img.shields.io/badge/📓_Notebook'u_görüntüle-nbviewer-F37626?logo=jupyter&logoColor=white" alt="nbviewer"></a>
+  <a href="https://colab.research.google.com/github/Memreu/Kusak-Catismasi/blob/main/notebooks/kusak_analizi.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+</p>
+
 **Z kuşağı** ile **X ve Y kuşakları** arasında yemek sipariş uygulamalarına (Yemeksepeti, Getir Yemek, Trendyol Yemek vb.) yönelik **alışkanlık, ekonomik algı ve sadakat** farklılıklarını inceleyen nicel bir araştırma. Eskişehir Osmangazi Üniversitesi Fen Fakültesi İstatistik Bölümü *Anket Düzenleme* dersi kapsamında yürütüldü.
 
 Çalışma, Teknoloji Kabul ve Kullanım Birleştirilmiş Teorisi'ni (**UTAUT2**) temel alıyor ve modeli **Duygusal Değer** ile **Ekonomik Algı** boyutlarıyla genişletiyor. İlk analizler SPSS ve SmartPLS ile yapıldı; bu repoda tüm analizler **Python** (PLS-SEM, hipotez testleri) ve **R** (doğrulayıcı faktör analizi, kovaryans tabanlı SEM, ölçme değişmezliği) ile baştan, açık ve tekrarlanabilir şekilde yeniden kuruldu.
@@ -27,6 +32,7 @@
 - [Önem-performans haritası](#önem-performans-haritası)
 - [Örneklem yeterliliği](#örneklem-yeterliliği)
 - [Yöntem](#yöntem)
+- [Adım adım notebook](#adım-adım-notebook)
 - [İki dilde analiz: Python ve R](#iki-dilde-analiz-python-ve-r)
 - [Kurulum ve çalıştırma](#kurulum-ve-çalıştırma)
 - [Yeniden analiz notları](#yeniden-analiz-notları)
@@ -132,6 +138,24 @@ Güç analizi (α = ,05, güç = ,80), 236 kişilik örneklemin modeldeki testle
 | **Ölçek** | 21 maddelik 7'li Likert: performans (3), çaba (3), duygusal değer (3), fiyat değeri (3), sadakat (3), alışkanlık (4), indirim (1), dikkat kontrolü (1) · [Anket formu](Anket%20Formu.docx) |
 | **Analizler** | Cronbach α, McDonald ω, birleşik güvenilirlik, AVE, HTMT, Fornell-Larcker · χ², t-testi, tek ve iki yönlü ANOVA · çoklu regresyon, moderasyon, bootstrap aracılık · PLS-SEM, çok gruplu PLS (permütasyon), önem-performans haritası · CFA, CB-SEM, ölçme değişmezliği · güç analizi |
 
+## Adım adım notebook
+
+Tüm analiz, açıklamaları ve yorumlarıyla birlikte tek bir defterde: [`notebooks/kusak_analizi.ipynb`](https://nbviewer.org/github/Memreu/Kusak-Catismasi/blob/main/notebooks/kusak_analizi.ipynb)
+
+| # | Bölüm | Soru |
+|---|---|---|
+| 1 | Örneklem | Kimlerle konuştuk? |
+| 2 | Ölçüm modeli | Ölçekler güvenilir ve birbirinden ayrışıyor mu? |
+| 3 | Kuşak karşılaştırması | Z kuşağı hangi algılarda farklı? |
+| 4 | Yapısal model (PLS-SEM) | Sadakati ne belirliyor? |
+| 5 | Ekonomik algı | Refah algısı duygu ve fiyatın etkisini değiştiriyor mu? |
+| 6 | Çok gruplu analiz | Sadakat mekanizması kuşaklarda aynı mı? |
+| 7 | Önem-performans haritası | Sadakat için nereye yatırım yapılmalı? |
+| 8 | Güç analizi | 236 kişi yeterli mi? |
+
+- 📓 **[nbviewer](https://nbviewer.org/github/Memreu/Kusak-Catismasi/blob/main/notebooks/kusak_analizi.ipynb)'da** gerçek veriden üretilmiş çıktılarla okunabilir (yalnızca toplu sonuçlar).
+- ☁️ **[Colab](https://colab.research.google.com/github/Memreu/Kusak-Catismasi/blob/main/notebooks/kusak_analizi.ipynb)'da** tek tıkla çalışır; ham veri paylaşılmadığı için orada sentetik veriyle çalışır ve sonuçlar biraz farklı çıkar.
+
 ## İki dilde analiz: Python ve R
 
 | Dil | Dosya | Ne yapıyor? |
@@ -153,6 +177,7 @@ cd Kusak-Catismasi
 # Python
 pip install -r requirements.txt
 python analysis/python/kusak_analiz.py        # sentetik veriyle → results/sentetik/
+jupyter lab notebooks/kusak_analizi.ipynb     # adım adım defter
 
 # R (lavaan ve psych paketleri gerekir)
 Rscript analysis/R/cfa_sem.R                   # sentetik veriyle → results/sentetik/R/
@@ -184,6 +209,8 @@ Tam liste: [`results/rapor_karsilastirma.md`](results/rapor_karsilastirma.md)
 │   │   └── sentetik_veri.py       # Gizliliği koruyan sentetik veri
 │   └── R/
 │       └── cfa_sem.R              # CFA, CB-SEM, ölçme değişmezliği
+├── notebooks/
+│   └── kusak_analizi.ipynb        # Adım adım analiz (nbviewer / Colab)
 ├── data/
 │   ├── README.md                  # Değişken sözlüğü ve gizlilik notu
 │   └── sentetik_veri.csv
