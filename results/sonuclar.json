@@ -1,0 +1,489 @@
+{
+  "veri": "gerçek",
+  "n": 236,
+  "n_z": 129,
+  "n_diger": 107,
+  "guvenilirlik": {
+    "PERF": {
+      "alpha": 0.73,
+      "rho_c": 0.847,
+      "AVE": 0.648
+    },
+    "CABA": {
+      "alpha": 0.809,
+      "rho_c": 0.887,
+      "AVE": 0.723
+    },
+    "DUYG": {
+      "alpha": 0.681,
+      "rho_c": 0.821,
+      "AVE": 0.605
+    },
+    "FIY": {
+      "alpha": 0.663,
+      "rho_c": 0.817,
+      "AVE": 0.599
+    },
+    "ALS": {
+      "alpha": 0.799,
+      "rho_c": 0.871,
+      "AVE": 0.629
+    },
+    "SAD": {
+      "alpha": 0.627,
+      "rho_c": 0.804,
+      "AVE": 0.579
+    }
+  },
+  "htmt_max": 0.7247528177491985,
+  "vif_max": 2.628982455024609,
+  "ki_kare": {
+    "Kuşak × sipariş sıklığı": {
+      "χ²": 9.377,
+      "sd": 4,
+      "p": 0.052,
+      "Cramér V": 0.201
+    },
+    "Kuşak × en sık kullanılan uygulama": {
+      "χ²": 5.86,
+      "sd": 4,
+      "p": 0.21,
+      "Cramér V": 0.158
+    },
+    "Kuşak × indirimin belirleyici olması": {
+      "χ²": 2.717,
+      "sd": 1,
+      "p": 0.099,
+      "Cramér V": 0.107
+    },
+    "Şehir büyüklüğü × uygulama": {
+      "χ²": 3.406,
+      "sd": 4,
+      "p": 0.492,
+      "Cramér V": 0.12
+    }
+  },
+  "indirim_onemli_oran": {
+    "Diğer": 0.879,
+    "Z": 0.798
+  },
+  "duyarlilik_18": {
+    "cikarilan": 10,
+    "p": {
+      "Performans beklentisi": 0.6907,
+      "Çaba beklentisi": 0.9333,
+      "Duygusal değer": 0.0177,
+      "Fiyat değeri": 0.0385,
+      "Alışkanlık": 0.021,
+      "Sadakat": 0.1778
+    }
+  },
+  "t_kusak": {
+    "Performans beklentisi": {
+      "Z ort.": 5.731,
+      "Diğer ort.": 5.757,
+      "t": -0.195,
+      "sd": 234.0,
+      "p": 0.846,
+      "Welch p": 0.844,
+      "Cohen d": -0.025
+    },
+    "Çaba beklentisi": {
+      "Z ort.": 5.827,
+      "Diğer ort.": 5.841,
+      "t": -0.102,
+      "sd": 234.0,
+      "p": 0.919,
+      "Welch p": 0.919,
+      "Cohen d": -0.013
+    },
+    "Duygusal değer": {
+      "Z ort.": 4.891,
+      "Diğer ort.": 5.302,
+      "t": -2.653,
+      "sd": 234.0,
+      "p": 0.009,
+      "Welch p": 0.008,
+      "Cohen d": -0.347
+    },
+    "Fiyat değeri": {
+      "Z ort.": 4.209,
+      "Diğer ort.": 4.576,
+      "t": -2.228,
+      "sd": 234.0,
+      "p": 0.027,
+      "Welch p": 0.027,
+      "Cohen d": -0.291
+    },
+    "Alışkanlık": {
+      "Z ort.": 3.5,
+      "Diğer ort.": 3.998,
+      "t": -2.636,
+      "sd": 234.0,
+      "p": 0.009,
+      "Welch p": 0.009,
+      "Cohen d": -0.345
+    },
+    "Sadakat": {
+      "Z ort.": 4.824,
+      "Diğer ort.": 5.009,
+      "t": -1.418,
+      "sd": 234.0,
+      "p": 0.157,
+      "Welch p": 0.155,
+      "Cohen d": -0.185
+    }
+  },
+  "t_cinsiyet": {
+    "Performans beklentisi": {
+      "Kadın ort.": 5.795,
+      "Erkek ort.": 5.696,
+      "t": 0.747,
+      "sd": 234.0,
+      "p": 0.456,
+      "Welch p": 0.455,
+      "Cohen d": 0.097
+    },
+    "Çaba beklentisi": {
+      "Kadın ort.": 6.018,
+      "Erkek ort.": 5.667,
+      "t": 2.56,
+      "sd": 234.0,
+      "p": 0.011,
+      "Welch p": 0.01,
+      "Cohen d": 0.334
+    },
+    "Duygusal değer": {
+      "Kadın ort.": 5.274,
+      "Erkek ort.": 4.901,
+      "t": 2.413,
+      "sd": 234.0,
+      "p": 0.017,
+      "Welch p": 0.016,
+      "Cohen d": 0.315
+    },
+    "Fiyat değeri": {
+      "Kadın ort.": 4.476,
+      "Erkek ort.": 4.285,
+      "t": 1.156,
+      "sd": 234.0,
+      "p": 0.249,
+      "Welch p": 0.251,
+      "Cohen d": 0.151
+    },
+    "Alışkanlık": {
+      "Kadın ort.": 3.525,
+      "Erkek ort.": 3.907,
+      "t": -2.021,
+      "sd": 234.0,
+      "p": 0.044,
+      "Welch p": 0.044,
+      "Cohen d": -0.263
+    },
+    "Sadakat": {
+      "Kadın ort.": 4.929,
+      "Erkek ort.": 4.89,
+      "t": 0.297,
+      "sd": 234.0,
+      "p": 0.767,
+      "Welch p": 0.766,
+      "Cohen d": 0.039
+    }
+  },
+  "t_sehir_min_p": 0.07196833768508196,
+  "anova_siklik": {
+    "F": 14.717355707359488,
+    "sd": [
+      4,
+      226
+    ],
+    "p": 1.0612243409589421e-10,
+    "eta2": 0.2066540601119036,
+    "spearman": 0.4226332295531518,
+    "ortalamalar": {
+      "1.0": 2.96,
+      "2.0": 3.68,
+      "3.0": 3.93,
+      "4.0": 4.75,
+      "5.0": 5.11
+    }
+  },
+  "anova_meslek_p": 0.043399328469370405,
+  "makas": {
+    "F": 3.5246558132896606,
+    "p": 0.06171715697753085,
+    "ortalamalar": {
+      "Diğer-Erkek": 5.16,
+      "Diğer-Kadın": 4.9,
+      "Z-Erkek": 4.73,
+      "Z-Kadın": 4.97
+    }
+  },
+  "regresyon": [
+    {
+      "hipotez": "H1a, H2a",
+      "bağımlı": "Duygusal değer",
+      "bağımsız": "Performans beklentisi",
+      "β": 0.288,
+      "t": 4.96,
+      "p": 0.0,
+      "R²": 0.343,
+      "F": 60.761
+    },
+    {
+      "hipotez": "H1a, H2a",
+      "bağımlı": "Duygusal değer",
+      "bağımsız": "Çaba beklentisi",
+      "β": 0.407,
+      "t": 7.018,
+      "p": 0.0,
+      "R²": 0.343,
+      "F": 60.761
+    },
+    {
+      "hipotez": "H1b, H2b",
+      "bağımlı": "Fiyat değeri",
+      "bağımsız": "Performans beklentisi",
+      "β": 0.146,
+      "t": 2.127,
+      "p": 0.034,
+      "R²": 0.081,
+      "F": 10.318
+    },
+    {
+      "hipotez": "H1b, H2b",
+      "bağımlı": "Fiyat değeri",
+      "bağımsız": "Çaba beklentisi",
+      "β": 0.193,
+      "t": 2.819,
+      "p": 0.005,
+      "R²": 0.081,
+      "F": 10.318
+    },
+    {
+      "hipotez": "H3a, H3b",
+      "bağımlı": "Sadakat",
+      "bağımsız": "Duygusal değer",
+      "β": 0.32,
+      "t": 5.278,
+      "p": 0.0,
+      "R²": 0.278,
+      "F": 44.839
+    },
+    {
+      "hipotez": "H3a, H3b",
+      "bağımlı": "Sadakat",
+      "bağımsız": "Fiyat değeri",
+      "β": 0.31,
+      "t": 5.103,
+      "p": 0.0,
+      "R²": 0.278,
+      "F": 44.839
+    },
+    {
+      "hipotez": "ek",
+      "bağımlı": "Sadakat",
+      "bağımsız": "Duygusal değer",
+      "β": 0.255,
+      "t": 4.597,
+      "p": 0.0,
+      "R²": 0.417,
+      "F": 55.356
+    },
+    {
+      "hipotez": "ek",
+      "bağımlı": "Sadakat",
+      "bağımsız": "Fiyat değeri",
+      "β": 0.228,
+      "t": 4.09,
+      "p": 0.0,
+      "R²": 0.417,
+      "F": 55.356
+    },
+    {
+      "hipotez": "ek",
+      "bağımlı": "Sadakat",
+      "bağımsız": "Alışkanlık",
+      "β": 0.393,
+      "t": 7.446,
+      "p": 0.0,
+      "R²": 0.417,
+      "F": 55.356
+    }
+  ],
+  "moderasyon": {
+    "H5a: Duygusal değer × Alışkanlık": {
+      "ΔR²": 0.0007,
+      "F": 0.2441,
+      "sd": 1,
+      "p": 0.6217
+    },
+    "H5b: Fiyat değeri × Alışkanlık": {
+      "ΔR²": 0.0007,
+      "F": 0.2465,
+      "sd": 1,
+      "p": 0.62
+    },
+    "H6a: Fiyat değeri × Ekonomik algı": {
+      "ΔR²": 0.0388,
+      "F": 5.8792,
+      "sd": 2,
+      "p": 0.0032
+    },
+    "H6b: Duygusal değer × Ekonomik algı": {
+      "ΔR²": 0.0241,
+      "F": 3.5939,
+      "sd": 2,
+      "p": 0.029
+    }
+  },
+  "eko_gruplar": {
+    "Kötü": {
+      "n": 19,
+      "β (duygusal değer)": 0.284,
+      "p (duygusal değer)": 0.239,
+      "β (fiyat değeri)": 0.489,
+      "p (fiyat değeri)": 0.034
+    },
+    "Orta": {
+      "n": 124,
+      "β (duygusal değer)": 0.544,
+      "p (duygusal değer)": 0.0,
+      "β (fiyat değeri)": 0.581,
+      "p (fiyat değeri)": 0.0
+    },
+    "İyi": {
+      "n": 93,
+      "β (duygusal değer)": 0.33,
+      "p (duygusal değer)": 0.001,
+      "β (fiyat değeri)": 0.241,
+      "p (fiyat değeri)": 0.02
+    }
+  },
+  "aracilik": [
+    {
+      "yol": "Performans → Duygusal değer → Sadakat",
+      "toplam (c)": 0.34,
+      "doğrudan (c')": 0.175,
+      "dolaylı (a×b)": 0.165,
+      "%95 GA alt": 0.093,
+      "%95 GA üst": 0.243
+    },
+    {
+      "yol": "Performans → Fiyat değeri → Sadakat",
+      "toplam (c)": 0.34,
+      "doğrudan (c')": 0.255,
+      "dolaylı (a×b)": 0.085,
+      "%95 GA alt": 0.035,
+      "%95 GA üst": 0.147
+    }
+  ],
+  "pls": {
+    "r2": {
+      "DUYG": 0.411,
+      "FIY": 0.085,
+      "SAD": 0.431
+    },
+    "yollar": {
+      "PERF → DUYG": {
+        "katsayi": 0.3062,
+        "std_hata": 0.0685,
+        "t": 4.4683,
+        "p": 0.0,
+        "ga_alt": 0.1794,
+        "ga_ust": 0.4451,
+        "f2": 0.1339
+      },
+      "CABA → DUYG": {
+        "katsayi": 0.454,
+        "std_hata": 0.067,
+        "t": 6.7725,
+        "p": 0.0,
+        "ga_alt": 0.3102,
+        "ga_ust": 0.576,
+        "f2": 0.2942
+      },
+      "PERF → FIY": {
+        "katsayi": 0.1524,
+        "std_hata": 0.0717,
+        "t": 2.1239,
+        "p": 0.0347,
+        "ga_alt": 0.0081,
+        "ga_ust": 0.2847,
+        "f2": 0.0214
+      },
+      "CABA → FIY": {
+        "katsayi": 0.1956,
+        "std_hata": 0.0743,
+        "t": 2.6337,
+        "p": 0.009,
+        "ga_alt": 0.0494,
+        "ga_ust": 0.3409,
+        "f2": 0.0352
+      },
+      "DUYG → SAD": {
+        "katsayi": 0.2771,
+        "std_hata": 0.0643,
+        "t": 4.312,
+        "p": 0.0,
+        "ga_alt": 0.1493,
+        "ga_ust": 0.3996,
+        "f2": 0.1133
+      },
+      "FIY → SAD": {
+        "katsayi": 0.2226,
+        "std_hata": 0.0645,
+        "t": 3.4528,
+        "p": 0.0007,
+        "ga_alt": 0.1016,
+        "ga_ust": 0.3534,
+        "f2": 0.0709
+      },
+      "ALS → SAD": {
+        "katsayi": 0.3981,
+        "std_hata": 0.0576,
+        "t": 6.9103,
+        "p": 0.0,
+        "ga_alt": 0.2848,
+        "ga_ust": 0.5086,
+        "f2": 0.2521
+      },
+      "PERF → DUYG → SAD": {
+        "katsayi": 0.0848,
+        "std_hata": 0.0254,
+        "t": 3.3385,
+        "p": 0.001,
+        "ga_alt": 0.041,
+        "ga_ust": 0.1384,
+        "f2": NaN
+      },
+      "CABA → DUYG → SAD": {
+        "katsayi": 0.1258,
+        "std_hata": 0.0363,
+        "t": 3.4669,
+        "p": 0.0006,
+        "ga_alt": 0.0581,
+        "ga_ust": 0.2002,
+        "f2": NaN
+      },
+      "PERF → FIY → SAD": {
+        "katsayi": 0.0339,
+        "std_hata": 0.0202,
+        "t": 1.6801,
+        "p": 0.0943,
+        "ga_alt": 0.0017,
+        "ga_ust": 0.0796,
+        "f2": NaN
+      },
+      "CABA → FIY → SAD": {
+        "katsayi": 0.0435,
+        "std_hata": 0.0243,
+        "t": 1.795,
+        "p": 0.0739,
+        "ga_alt": 0.008,
+        "ga_ust": 0.1011,
+        "f2": NaN
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+# Ham ve işlenmiş gerçek veri: katılımcı gizliliği nedeniyle ASLA commit'lenmez
+data/private/
+*.sav
+*.spv
+*.xlsx
+*.zip
+
+# Sentetik veriyle üretilen çıktılar (CI'da yeniden üretilir)
+results/sentetik/
+
+# Python / R / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+.Rhistory
+.RData
+
+# İşletim sistemi
+.DS_Store
+Thumbs.db

@@ -1,28 +1,34 @@
 # 🍔 Kuşak Çatışması: Yemek Sipariş Uygulamalarında Alışkanlık, Ekonomik Algı ve Sadakat
 
 <p align="center">
-  <img src="https://img.shields.io/badge/yöntem-PLS--SEM-2E5EAA" alt="PLS-SEM">
+  <img src="https://img.shields.io/badge/Python-PLS--SEM-3776AB?logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/R-lavaan_CFA%2FSEM-276DC3?logo=r&logoColor=white" alt="R">
+  <img src="https://img.shields.io/badge/SPSS-ham_analiz-CC2927" alt="SPSS">
   <img src="https://img.shields.io/badge/kuram-UTAUT2_(genişletilmiş)-29A36A" alt="UTAUT2">
-  <img src="https://img.shields.io/badge/örneklem-239_katılımcı-E4572E" alt="Örneklem">
-  <img src="https://img.shields.io/badge/ölçek-7'li_Likert-F2A900" alt="Likert">
-  <img src="https://img.shields.io/badge/ESOGÜ-İstatistik_Bölümü-6C3483" alt="ESOGÜ">
+  <img src="https://img.shields.io/badge/örneklem-236_katılımcı-E4572E" alt="Örneklem">
+  <a href="https://github.com/Memreu/Kusak-Catismasi/actions/workflows/analiz.yml"><img src="https://github.com/Memreu/Kusak-Catismasi/actions/workflows/analiz.yml/badge.svg" alt="analiz"></a>
 </p>
 
 **Z kuşağı** ile **X ve Y kuşakları** arasında yemek sipariş uygulamalarına (Yemeksepeti, Getir Yemek, Trendyol Yemek vb.) yönelik **alışkanlık, ekonomik algı ve sadakat** farklılıklarını inceleyen nicel bir araştırma. Eskişehir Osmangazi Üniversitesi Fen Fakültesi İstatistik Bölümü *Anket Düzenleme* dersi kapsamında yürütüldü.
 
-Çalışma, Teknoloji Kabul ve Kullanım Birleştirilmiş Teorisi'ni (**UTAUT2**) temel alıyor ve modeli **Duygusal Değer** ile **Ekonomik Algı** boyutlarıyla genişletiyor.
+Çalışma, Teknoloji Kabul ve Kullanım Birleştirilmiş Teorisi'ni (**UTAUT2**) temel alıyor ve modeli **Duygusal Değer** ile **Ekonomik Algı** boyutlarıyla genişletiyor. İlk analizler SPSS ve SmartPLS ile yapıldı; bu repoda tüm analizler **Python** (PLS-SEM, hipotez testleri) ve **R** (doğrulayıcı faktör analizi, kovaryans tabanlı SEM, ölçme değişmezliği) ile baştan, açık ve tekrarlanabilir şekilde yeniden kuruldu.
 
-> 🇬🇧 **In English:** A survey study (n = 239) comparing Generation Z with Generations X/Y in their use of food delivery apps, based on an extended UTAUT2 model with *emotional value* and *economic perception*. Using reliability analysis, t-tests, ANOVA, chi-square, multiple regression and PLS-SEM, it finds that discounts drive first use but **emotional satisfaction drives loyalty**; that Gen Z, contrary to expectations, shows **lower habit scores**; that **effort expectancy** shapes emotional value more than performance expectancy; that economic perception moderates the emotion–loyalty link; and that loyalty differs by gender in opposite directions across generations (a *scissors effect*).
+<p align="center"><img src="results/grafikler/01_pls_model.png" width="90%"></p>
+
+> 🇬🇧 **In English:** A survey study (n = 236) comparing Generation Z with Generations X/Y in their use of food delivery apps, based on an extended UTAUT2 model. All analyses were rebuilt from the original SPSS data in **Python** (a dependency-free PLS-SEM implementation with bootstrapping, t-tests, ANOVA, moderation and mediation) and **R** (lavaan CFA, covariance-based SEM and measurement invariance). Habit is the strongest driver of loyalty (β = 0.40), followed by emotional value and price value; ease of use is the main source of emotional value. Contrary to the "digital native" view, Gen Z reports **lower habit, emotional value and price value** than older generations, and economic perception moderates how much price and emotion translate into loyalty. Raw data are not shared to protect participants; a privacy-preserving synthetic dataset lets anyone run the code.
 
 <details>
 <summary><b>📑 İçindekiler</b></summary>
 
 - [Temel bulgular](#temel-bulgular)
-- [Araştırma modeli](#araştırma-modeli)
+- [Hipotez sonuçları](#hipotez-sonuçları)
+- [Görsel özet](#görsel-özet)
 - [Yöntem](#yöntem)
-- [Ölçek](#ölçek)
-- [Repo içeriği](#repo-içeriği)
-- [Pazarlama için çıkarımlar](#pazarlama-için-çıkarımlar)
+- [İki dilde analiz: Python ve R](#iki-dilde-analiz-python-ve-r)
+- [Kurulum ve çalıştırma](#kurulum-ve-çalıştırma)
+- [Yeniden analiz notları](#yeniden-analiz-notları)
+- [Klasör yapısı](#klasör-yapısı)
+- [Sınırlılıklar](#sınırlılıklar)
 - [Araştırmacılar](#araştırmacılar)
 
 </details>
@@ -31,71 +37,133 @@
 
 | | Bulgu |
 |---|---|
-| 💸 **Fiyat kapıyı açar, duygu içeride tutar** | İndirimler yalnızca ilk denemeyi sağlıyor; sadakati asıl belirleyen rasyonel ucuzluk değil, **duygusal tatmin** |
-| 📱 **Z kuşağı "otomatik pilot"ta değil** | Beklenenin aksine, dijital yerli Z kuşağının **alışkanlık skoru diğer kuşaklardan anlamlı derecede düşük** |
-| 🪶 **En sevilen uygulama en az yoran uygulamadır** | Çaba beklentisinin (zahmetsizlik) duygusal değer üzerindeki etkisi, performans beklentisinden **çok daha güçlü** |
-| 📉 **Ekonomik algı karar mekanizmasını yönetiyor** | Ekonomik algı kötüyken duygusal bağ sadakati etkilemiyor; refah algısı arttıkça **duygusal deneyimin önemi artıyor** |
-| ✂️ **Tek tip pazarlama devri bitti** | Cinsiyet ve kuşak arasında bir **"makas etkisi"** var: Z kuşağında kadınlar, diğer kuşaklarda erkekler daha sadık |
+| 🔁 **Sadakatin üç motoru** | Sadakati en güçlü yordayan **alışkanlık** (β = 0,40); onu **duygusal değer** (0,28) ve **fiyat değeri** (0,22) izliyor. Model sadakatteki varyansın **%43**'ünü açıklıyor |
+| 🪶 **En sevilen uygulama, en az yoran uygulamadır** | Duygusal değerin en güçlü öncülü **çaba beklentisi** (β = 0,45, f² = 0,29); performans beklentisi daha zayıf (β = 0,31) |
+| 📱 **Z kuşağı "otomatik pilot"ta değil** | Beklenenin aksine Z kuşağının **alışkanlık** (3,50 vs 4,00), **duygusal değer** ve **fiyat değeri** algısı diğer kuşaklardan anlamlı derecede düşük; uygulamayı kullanma kolaylığında fark yok |
+| 📉 **Ekonomik algı dengeyi değiştiriyor** | Ekonomik durumunu kötü algılayanlarda duygusal değerin sadakate etkisi anlamsız, fiyat değerinin etkisi anlamlı. Ekonomik algı iyileştikçe fiyatın etkisi en düşük seviyeye iniyor |
+| 🔄 **Sıklık alışkanlık yaratıyor** | Ayda 0-2 kez sipariş verenlerin alışkanlık skoru 2,96, 12+ kez verenlerinki 5,11 (η² = 0,21) |
+| ✂️ **Makas etkisine dair bir eğilim** | Z kuşağında kadınlar, diğer kuşaklarda erkekler daha sadık; etkileşim sınırda (p = ,062) |
 
-## Araştırma modeli
+## Hipotez sonuçları
 
-```mermaid
-flowchart LR
-    PERF[Performans<br/>beklentisi] --> DUYG[Duygusal<br/>değer]
-    CABA[Çaba<br/>beklentisi] ==>|en güçlü etki| DUYG
-    DUYG ==> SAD[Sadakat]
-    FIY[Fiyat değeri /<br/>kampanyalar] -.->|ilk deneme| SAD
-    ALS[Alışkanlık] --> SAD
-    EKO{{Ekonomik algı}} -.->|düzenleyici etki| DUYG
-    KUS{{Kuşak × Cinsiyet}} -.->|grup farkları| SAD
-```
+| Hipotez | İlişki | Sonuç | Kanıt |
+|---|---|---|---|
+| H1a | Performans beklentisi → Duygusal değer | ✅ Desteklendi | β = 0,29, p < ,001 |
+| H1b | Performans beklentisi → Fiyat değeri | ✅ Desteklendi (zayıf) | β = 0,15, p = ,034 |
+| H2a | Çaba beklentisi → Duygusal değer | ✅ Desteklendi | β = 0,41, p < ,001 |
+| H2b | Çaba beklentisi → Fiyat değeri | ✅ Desteklendi | β = 0,19, p = ,005 |
+| H3a | Duygusal değer → Sadakat | ✅ Desteklendi | β = 0,32, p < ,001 |
+| H3b | Fiyat değeri → Sadakat | ✅ Desteklendi | β = 0,31, p < ,001 |
+| H4a | Z kuşağının alışkanlığı daha yüksektir | ❌ Reddedildi (**ters yönde** anlamlı) | 3,50 vs 4,00; t(234) = −2,64, p = ,009 |
+| H4b | Kuşaklar arasında sadakat farkı vardır | ❌ Reddedildi | p = ,157 |
+| H5a | Alışkanlık, duygusal değer → sadakat ilişkisini düzenler | ❌ Reddedildi | ΔR² = 0,001, p = ,622 |
+| H5b | Alışkanlık, fiyat değeri → sadakat ilişkisini düzenler | ❌ Reddedildi | ΔR² = 0,001, p = ,620 |
+| H6a | Kötü ekonomik algı, fiyat değerinin etkisini güçlendirir | 🟡 Kısmen desteklendi | Moderasyon F(2, 230) = 5,88, p = ,003; fiyatın etkisi iyi algıda en zayıf (β = 0,24) |
+| H6b | İyi ekonomik algı, duygusal değerin etkisini güçlendirir | 🟡 Kısmen desteklendi | Moderasyon p = ,029; kötü algıda etki yok, en güçlü etki orta algıda (β = 0,54) |
 
-*Kavramsal gösterimdir; kalın oklar bulgularda öne çıkan güçlü ilişkileri, kesikli oklar düzenleyici veya zayıf etkileri temsil eder.*
+H1–H3: standartlaştırılmış çoklu regresyon; ayrıntılar ve PLS-SEM bootstrap sonuçları [`results/tablolar`](results/tablolar) klasöründe.
+
+## Görsel özet
+
+**Kuşak farkları:** Z kuşağı uygulamayı diğer kuşaklar kadar kullanışlı ve kolay buluyor, ancak ondan daha az duygusal ve ekonomik değer algılıyor ve daha az alışkanlık geliştiriyor.
+
+<p align="center"><img src="results/grafikler/02_kusak_karsilastirma.png" width="90%"></p>
+
+**Etkileşimler:** Kuşak × cinsiyet "makas" deseni (solda) ve ekonomik algı gruplarında duygusal değer ile sadakat ilişkisi (sağda).
+
+<p align="center"><img src="results/grafikler/03_makas_ve_ekonomi.png" width="95%"></p>
+
+<p align="center">
+  <img src="results/grafikler/04_siklik_aliskanlik.png" width="48%">
+</p>
+
+**Ölçüm modeli:** Tüm yapılarda birleşik güvenilirlik ρc > 0,80 ve AVE > 0,57; HTMT değerlerinin tamamı 0,85 eşiğinin altında (en yüksek 0,72).
+
+<p align="center"><img src="results/grafikler/05_olcum_modeli.png" width="95%"></p>
 
 ## Yöntem
 
 | | |
 |---|---|
 | **Evren** | Türkiye'de yemek sipariş uygulamalarını aktif kullanan 18 yaş ve üzeri bireyler |
-| **Örneklem** | 239 geçerli katılımcı (Z kuşağı: 130, diğer kuşaklar: 109) |
-| **Örnekleme** | Kartopu ve kolayda örnekleme |
-| **Veri toplama** | Google Forms ile çevrimiçi anket (~4 dakika) |
-| **Veri kalitesi** | Dikkat kontrol sorusu (KONT14) ile yanıt kalitesinin denetlenmesi |
-| **Analizler** | Güvenilirlik analizi, normallik testleri, Ki-kare, t-testi, ANOVA, çoklu regresyon, **PLS-SEM** |
+| **Örneklem** | Dikkat kontrolü, ayrıştırma sorusu ("son 6 ayda sipariş verdiniz mi?") ve tekdüze yanıt filtresi sonrası **236 geçerli katılımcı** (Z kuşağı: 129, diğer kuşaklar: 107), 50 il |
+| **Örnekleme** | Kartopu ve kolayda örnekleme; Google Forms ile çevrimiçi anket (~4 dakika) |
+| **Ölçek** | 21 maddelik 7'li Likert: performans (3), çaba (3), duygusal değer (3), fiyat değeri (3), sadakat (3), alışkanlık (4), indirim (1), dikkat kontrolü (1) · [Anket formu](Anket%20Formu.docx) |
+| **Analizler** | Cronbach α, McDonald ω, birleşik güvenilirlik, AVE, HTMT, Fornell-Larcker · χ², t-testi, tek ve iki yönlü ANOVA · çoklu regresyon, moderasyon, bootstrap aracılık · PLS-SEM · CFA, CB-SEM, ölçme değişmezliği |
 
-## Ölçek
+## İki dilde analiz: Python ve R
 
-Ankette 10 demografik / kullanım sorusu ve 7'li Likert tipinde (1 = Hiç katılmıyorum … 7 = Tamamen katılıyorum) 21 ifade yer alıyor:
+| Dil | Dosya | Ne yapıyor? |
+|---|---|---|
+| 🐍 Python | [`analysis/python/pls_sem.py`](analysis/python/pls_sem.py) | Sıfırdan yazılmış PLS-SEM: Mode A, yol ağırlıklandırma şeması, R², f², ρc, AVE, HTMT, Fornell-Larcker, VIF, bootstrap ile yol ve dolaylı etki testleri. SmartPLS sonuçlarıyla (VIF, f²) birebir uyumlu |
+| 🐍 Python | [`analysis/python/kusak_analiz.py`](analysis/python/kusak_analiz.py) | Tüm hipotez testleri ve grafikler; sonuçları Markdown tablolarına ve JSON'a yazar |
+| 🐍 Python | [`analysis/python/veri_hazirla.py`](analysis/python/veri_hazirla.py) | SPSS verisini anonim analiz verisine dönüştürür, kodlama hatasını yanıt tablosuyla düzeltir |
+| 🐍 Python | [`analysis/python/sentetik_veri.py`](analysis/python/sentetik_veri.py) | Gizliliği koruyan sentetik veri (Gauss kopula) |
+| 📊 R | [`analysis/R/cfa_sem.R`](analysis/R/cfa_sem.R) | `lavaan` ile doğrulayıcı faktör analizi, kovaryans tabanlı SEM, dolaylı etkiler ve kuşaklar arası ölçme değişmezliği; `psych` ile güvenilirlik |
 
-| Kod | Yapı | İfade sayısı |
-|---|---|:---:|
-| `PERF` | Performans beklentisi | 3 |
-| `CABA` | Çaba beklentisi | 3 |
-| `DUYG` | Duygusal değer | 3 |
-| `FIY` | Fiyat değeri | 3 |
-| `SIN` | Kampanya / indirim etkisi | 1 |
-| `ALS` | Alışkanlık | 4 |
-| `SAD` | Sadakat | 3 |
-| `KONT` | Dikkat kontrolü | 1 |
+**Neden iki yöntem?** PLS-SEM tahmin odaklıdır ve küçük örneklemlerde esnektir; kovaryans tabanlı SEM ise modelin veriye ne kadar uyduğunu test eder. İki yöntemde de yolların yönü aynı, ancak CB-SEM model uyumunun sınırda olduğunu (CFI = 0,85, RMSEA = 0,087) ve performans/çaba → fiyat değeri yollarının bu yöntemde anlamlı olmadığını gösteriyor. Ayrıntılar: [`results/R/sonuclar.md`](results/R/sonuclar.md).
 
-**Ekonomik algı** katılımcının kendi ekonomik durumunu 1–5 arası puanlamasıyla ölçüldü. Demografik bölümde ayrıca cinsiyet, yaş, eğitim, meslek, şehir, en sık kullanılan uygulama, kullanılan uygulama sayısı ve aylık sipariş sıklığı soruldu.
+## Kurulum ve çalıştırma
 
-## Repo içeriği
+```bash
+git clone https://github.com/Memreu/Kusak-Catismasi.git
+cd Kusak-Catismasi
+
+# Python
+pip install -r requirements.txt
+python analysis/python/kusak_analiz.py        # sentetik veriyle → results/sentetik/
+
+# R (lavaan ve psych paketleri gerekir)
+Rscript analysis/R/cfa_sem.R                   # sentetik veriyle → results/sentetik/R/
+```
+
+Ham veriye erişimi olan araştırmacılar `--gercek` bayrağıyla gerçek sonuçları üretebilir; bkz. [`data/README.md`](data/README.md). Her push'ta iki betik de GitHub Actions'ta sentetik veriyle çalıştırılır.
+
+> 🔒 **Veri gizliliği:** Katılımcılara verilerin yalnızca bilimsel amaçla kullanılacağı ve kimlik bilgilerinin gizli tutulacağı taahhüt edildiği için ham veri paylaşılmaz. Repodaki [`data/sentetik_veri.csv`](data/sentetik_veri.csv), gerçek verinin dağılım ve korelasyon yapısını taklit eden ancak hiçbir gerçek katılımcıya karşılık gelmeyen sentetik bir veri setidir. Yalnızca toplu sonuçlar (`results/`) gerçek veriden üretilmiştir.
+
+## Yeniden analiz notları
+
+Analizlerin bağımsız olarak yeniden kurulması sırasında ders raporundaki sonuçların büyük çoğunluğu birebir doğrulandı. Öne çıkan farklar şunlar:
+
+- SPSS dosyasında **sipariş sıklığı** değişkeninin iki kategorisi ("3-5" ve "9-11 Kez") aynı koda birleşmişti; yanıt tablosuyla düzeltildi. Düzeltmeden sonra kuşak × sipariş sıklığı ilişkisi sınırda kaldı (p = ,052).
+- Raporda bazı R² değerleri olduğundan yüksek yazılmıştı (ör. PLS-SEM'de sadakat için 0,634 yerine 0,431). Katsayılar ve hipotez kararları büyük ölçüde değişmiyor.
+- H6a (fiyat değeri × ekonomik algı) moderasyonu anlamlı çıktı.
+- 10 yanıt araştırma evreninin (18+) dışında kalan katılımcılara aitti; bu yanıtlar çıkarıldığında kuşak farkları anlamlı kalıyor.
+
+Tam liste: [`results/rapor_karsilastirma.md`](results/rapor_karsilastirma.md)
+
+## Klasör yapısı
 
 ```
-├── Anket Formu.docx     # Uygulanan anketin tam metni (demografik sorular + 21 Likert ifadesi)
-├── Kaynakça.docx        # Çalışmada yararlanılan 40 akademik kaynak (APA formatında)
-└── README.md
+├── analysis/
+│   ├── python/
+│   │   ├── pls_sem.py             # PLS-SEM uygulaması (numpy/pandas)
+│   │   ├── kusak_analiz.py        # Tüm analizler ve grafikler
+│   │   ├── veri_hazirla.py        # SPSS → anonim analiz verisi
+│   │   └── sentetik_veri.py       # Gizliliği koruyan sentetik veri
+│   └── R/
+│       └── cfa_sem.R              # CFA, CB-SEM, ölçme değişmezliği
+├── data/
+│   ├── README.md                  # Değişken sözlüğü ve gizlilik notu
+│   └── sentetik_veri.csv
+├── results/                       # Gerçek veriden üretilmiş toplu sonuçlar
+│   ├── tablolar/                  # Sonuç tabloları (Markdown)
+│   ├── grafikler/
+│   ├── R/sonuclar.md
+│   ├── sonuclar.json
+│   └── rapor_karsilastirma.md
+├── Anket Formu.docx               # Uygulanan anketin tam metni
+├── Kaynakça.docx                  # 40 akademik kaynak (APA)
+├── requirements.txt
+└── .github/workflows/analiz.yml   # Python ve R analizlerinin CI'ı
 ```
 
-> 🔒 **Veri gizliliği:** Katılımcılara verilerin yalnızca bilimsel amaçla kullanılacağı ve kimlik bilgilerinin gizli tutulacağı taahhüt edildiği için ham veri seti etik nedenlerle paylaşılmamıştır.
+## Sınırlılıklar
 
-## Pazarlama için çıkarımlar
-
-- **İndirim tek başına sadakat yaratmıyor.** Kampanya bütçesinin bir kısmı kullanıcı deneyimine (hızlı, net, zahmetsiz sipariş akışı) aktarılmalı.
-- **Z kuşağı alışkanlıkla değil, deneyimle bağlanıyor.** Bu kitle için uygulamalar arası geçiş maliyeti düşük; duygusal deneyim ve kolaylık ön planda olmalı.
-- **Ekonomik koşullara göre mesaj değişmeli.** Ekonomik algının kötü olduğu dönemlerde fiyat odaklı, iyileştiği dönemlerde deneyim odaklı iletişim daha etkili olabilir.
-- **Segment bazlı hedefleme şart.** Kuşak ve cinsiyet kırılımında sadakat farklı işlediği için tek tip kampanyalar verimsiz kalıyor.
+- **Örneklem:** Kartopu ve kolayda örnekleme; katılımcıların yarıdan fazlası öğrenci ve örneklem İstanbul, Eskişehir ve Bursa'da yoğunlaşıyor. Sonuçlar Türkiye geneline genellenirken dikkatli olunmalı.
+- **Kesitsel tasarım:** Alışkanlık gibi zamanla gelişen yapılar için boylamsal veri daha uygun olur; yol katsayıları nedensellik kanıtı değildir.
+- **Ölçüm:** Duygusal değer, fiyat değeri ve sadakat ölçeklerinin α değerleri 0,60–0,70 arasında; CB-SEM model uyumu sınırda. Kötü ekonomik algı grubu küçük (n = 19).
+- **Ölçme değişmezliği:** Metrik değişmezlik eşiği çok az aşılıyor (ΔCFI = −0,012); kuşak ortalamalarının karşılaştırılması temkinli yorumlanmalı.
 
 ## Araştırmacılar
 
