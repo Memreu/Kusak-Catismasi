@@ -485,5 +485,120 @@
         "f2": NaN
       }
     }
+  },
+  "guc": [
+    {
+      "test": "Regresyon / PLS yolu (3 yordayıcı): Sadakat ← duygusal değer + fiyat değeri + alışkanlık",
+      "orta etki için gereken n": 77,
+      "küçük etki için gereken n": 550,
+      "mevcut n": 236,
+      "en küçük saptanabilir etki": "f² = 0.047",
+      "orta etkiyi yakalama gücü": 1.0
+    },
+    {
+      "test": "Regresyon / PLS yolu (2 yordayıcı): Duygusal / fiyat değeri ← performans + çaba",
+      "orta etki için gereken n": 68,
+      "küçük etki için gereken n": 485,
+      "mevcut n": 236,
+      "en küçük saptanabilir etki": "f² = 0.041",
+      "orta etkiyi yakalama gücü": 1.0
+    },
+    {
+      "test": "Kuşak karşılaştırması (t-testi, 129 vs 107)",
+      "orta etki için gereken n": 128,
+      "küçük etki için gereken n": 788,
+      "mevcut n": 236,
+      "en küçük saptanabilir etki": "d = 0.368",
+      "orta etkiyi yakalama gücü": 0.968
+    }
+  ],
+  "mga": {
+    "PERF → DUYG": {
+      "Z kuşağı β": 0.284,
+      "Diğer kuşaklar β": 0.362,
+      "fark": -0.079,
+      "p (permütasyon)": 0.605
+    },
+    "CABA → DUYG": {
+      "Z kuşağı β": 0.44,
+      "Diğer kuşaklar β": 0.452,
+      "fark": -0.012,
+      "p (permütasyon)": 0.945
+    },
+    "PERF → FIY": {
+      "Z kuşağı β": 0.083,
+      "Diğer kuşaklar β": 0.311,
+      "fark": -0.228,
+      "p (permütasyon)": 0.135
+    },
+    "CABA → FIY": {
+      "Z kuşağı β": 0.271,
+      "Diğer kuşaklar β": 0.055,
+      "fark": 0.216,
+      "p (permütasyon)": 0.153
+    },
+    "DUYG → SAD": {
+      "Z kuşağı β": 0.333,
+      "Diğer kuşaklar β": 0.185,
+      "fark": 0.148,
+      "p (permütasyon)": 0.255
+    },
+    "FIY → SAD": {
+      "Z kuşağı β": 0.259,
+      "Diğer kuşaklar β": 0.218,
+      "fark": 0.041,
+      "p (permütasyon)": 0.767
+    },
+    "ALS → SAD": {
+      "Z kuşağı β": 0.348,
+      "Diğer kuşaklar β": 0.483,
+      "fark": -0.135,
+      "p (permütasyon)": 0.24
+    },
+    "R² (Duygusal değer)": {
+      "Z kuşağı β": 0.348,
+      "Diğer kuşaklar β": 0.51,
+      "fark": -0.162,
+      "p (permütasyon)": NaN
+    },
+    "R² (Fiyat değeri)": {
+      "Z kuşağı β": 0.094,
+      "Diğer kuşaklar β": 0.118,
+      "fark": -0.024,
+      "p (permütasyon)": NaN
+    },
+    "R² (Sadakat)": {
+      "Z kuşağı β": 0.449,
+      "Diğer kuşaklar β": 0.442,
+      "fark": 0.007,
+      "p (permütasyon)": NaN
+    }
+  },
+  "ipma": {
+    "Performans beklentisi": {
+      "kod": "PERF",
+      "önem (toplam etki)": 0.119,
+      "performans (0-100)": 78.886
+    },
+    "Çaba beklentisi": {
+      "kod": "CABA",
+      "önem (toplam etki)": 0.169,
+      "performans (0-100)": 80.498
+    },
+    "Duygusal değer": {
+      "kod": "DUYG",
+      "önem (toplam etki)": 0.277,
+      "performans (0-100)": 69.445
+    },
+    "Fiyat değeri": {
+      "kod": "FIY",
+      "önem (toplam etki)": 0.223,
+      "performans (0-100)": 56.5
+    },
+    "Alışkanlık": {
+      "kod": "ALS",
+      "önem (toplam etki)": 0.398,
+      "performans (0-100)": 46.269
+    }
   }
 }

@@ -270,6 +270,28 @@ def main(gercek: bool, n_boot: int) -> None:
     R["pls"] = {"r2": pls.r2.round(3).to_dict(),
                 "yollar": boot.round(4).set_index("yol").to_dict(orient="index")}
 
+    # 10) Güç analizi -------------------------------------------------------------
+    guc = guc_analizi(len(d), R["n_z"], R["n_diger"])
+    md(guc, tab / "15_guc_analizi.md", "Güç analizi (α = .05, güç = .80)",
+       "F testleri için Cohen (1988) etki büyüklükleri: f² = .02 küçük, .15 orta, .35 büyük; "
+       "t-testi için d = .20 küçük, .50 orta. 'En küçük saptanabilir etki', mevcut örneklemle "
+       "%80 güçle yakalanabilecek en küçük etki büyüklüğüdür.")
+    R["guc"] = guc.round(3).to_dict(orient="records")
+
+    # 11) Çok gruplu analiz (PLS-MGA, permütasyon testi) ---------------------------
+    mga = pls_mga(d, model, n_perm=max(200, n_boot // 2))
+    md(mga, tab / "16_pls_mga.md", "Çok gruplu PLS analizi: Z kuşağı vs diğer kuşaklar",
+       f"Fark = Z − Diğer. p değerleri {max(200, n_boot // 2)} permütasyonla hesaplanmıştır "
+       "(Chin ve Dibbern, 2010). Ölçme değişmezliği sınırda olduğu için (R çıktısı) farklar temkinli yorumlanmalıdır.")
+    R["mga"] = mga.round(3).set_index("yol").to_dict(orient="index")
+
+    # 12) Önem-performans haritası (IPMA) --------------------------------------------
+    ipma = ipma_analizi(d, pls)
+    md(ipma, tab / "17_ipma.md", "Önem-performans haritası (hedef: sadakat)",
+       "Önem: sadakat üzerindeki standartlaştırılmış toplam etki. Performans: yapının 0–100 "
+       "ölçeğine dönüştürülmüş ortalaması (PLS dış ağırlıklarıyla). Yüksek önem + düşük performans = öncelikli iyileştirme alanı.")
+    R["ipma"] = ipma.round(3).set_index("yapı").to_dict(orient="index")
+
     (out / "sonuclar.json").write_text(json.dumps(R, ensure_ascii=False, indent=2, default=float),
                                        encoding="utf-8")
 
@@ -279,6 +301,8 @@ def main(gercek: bool, n_boot: int) -> None:
     grafik_makas_eko(d, slopes, fig / "03_makas_ve_ekonomi.png")
     grafik_siklik(an, fig / "04_siklik_aliskanlik.png")
     grafik_htmt(pls, fig / "05_olcum_modeli.png")
+    grafik_mga(mga, fig / "06_kusak_modelleri.png")
+    grafik_ipma(ipma, fig / "07_onem_performans.png")
     print(f"Analiz tamamlandı ({R['veri']} veri, n={len(d)}) → {out.relative_to(ROOT)}")
 
 
@@ -390,6 +414,126 @@ def grafik_htmt(pls, path):
     ax[1].set_xticks(range(len(h)), list(BLOCKS)); ax[1].set_yticks(range(len(h)), list(BLOCKS))
     ax[1].grid(False); ax[1].set_title("HTMT (eşik < .85)")
     fig.colorbar(im, ax=ax[1], shrink=0.8)
+    fig.tight_layout(); fig.savefig(path, bbox_inches="tight", facecolor="white"); plt.close(fig)
+
+
+# --------------------------------------------------------------------------- #
+def _f_power(f2: float, u: int, n: int, alpha: float = 0.05) -> float:
+    """Çoklu regresyon F testi için güç (Cohen: λ = f² · n)."""
+    v = n - u - 1
+    crit = stats.f.ppf(1 - alpha, u, v)
+    return 1 - stats.ncf.cdf(crit, u, v, f2 * n)
+
+
+def _t_power(dd: float, n1: int, n2: int, alpha: float = 0.05) -> float:
+    df = n1 + n2 - 2
+    nc = dd * np.sqrt(n1 * n2 / (n1 + n2))
+    crit = stats.t.ppf(1 - alpha / 2, df)
+    return 1 - stats.nct.cdf(crit, df, nc) + stats.nct.cdf(-crit, df, nc)
+
+
+def guc_analizi(n: int, n1: int, n2: int) -> pd.DataFrame:
+    from scipy.optimize import brentq
+
+    rows = []
+    for u, ad in [(3, "Sadakat ← duygusal değer + fiyat değeri + alışkanlık"),
+                  (2, "Duygusal / fiyat değeri ← performans + çaba")]:
+        gerekli = next(k for k in range(u + 3, 5000) if _f_power(0.15, u, k) >= 0.80)
+        gerekli_kucuk = next(k for k in range(u + 3, 5000) if _f_power(0.02, u, k) >= 0.80)
+        mde = brentq(lambda f: _f_power(f, u, n) - 0.80, 1e-4, 0.5)
+        rows.append({"test": f"Regresyon / PLS yolu ({u} yordayıcı): {ad}",
+                     "orta etki için gereken n": gerekli, "küçük etki için gereken n": gerekli_kucuk,
+                     "mevcut n": n, "en küçük saptanabilir etki": f"f² = {mde:.3f}",
+                     "orta etkiyi yakalama gücü": _f_power(0.15, u, n)})
+    gerekli_t = next(k for k in range(4, 5000) if _t_power(0.5, k, k) >= 0.80)
+    mde_t = brentq(lambda x: _t_power(x, n1, n2) - 0.80, 1e-3, 1.5)
+    rows.append({"test": f"Kuşak karşılaştırması (t-testi, {n1} vs {n2})",
+                 "orta etki için gereken n": 2 * gerekli_t,
+                 "küçük etki için gereken n": 2 * next(k for k in range(4, 5000) if _t_power(0.2, k, k) >= 0.80),
+                 "mevcut n": n1 + n2, "en küçük saptanabilir etki": f"d = {mde_t:.3f}",
+                 "orta etkiyi yakalama gücü": _t_power(0.5, n1, n2)})
+    return pd.DataFrame(rows)
+
+
+def pls_mga(d: pd.DataFrame, model: PLSModel, n_perm: int = 1000, seed: int = 11) -> pd.DataFrame:
+    rng = np.random.default_rng(seed)
+
+    def coefs(sub):
+        p, r2 = model._paths_r2(model._estimate(sub)[2])
+        return pd.Series({f"{a} → {b}": c for a, b, c in p.itertuples(index=False)}), r2
+
+    g = d.kusak.to_numpy()
+    cz, r2z = coefs(d[g == "Z"]); cd, r2d = coefs(d[g == "Diğer"])
+    diff = cz - cd
+    perm = []
+    for _ in range(n_perm):
+        sh = rng.permutation(g)
+        try:
+            a, _ = coefs(d[sh == "Z"]); b, _ = coefs(d[sh == "Diğer"])
+            perm.append(a - b)
+        except np.linalg.LinAlgError:
+            continue
+    perm = pd.DataFrame(perm)
+    p = {k: (np.abs(perm[k]) >= abs(diff[k])).mean() for k in diff.index}
+    out = pd.DataFrame({"yol": diff.index, "Z kuşağı β": cz.values, "Diğer kuşaklar β": cd.values,
+                        "fark": diff.values, "p (permütasyon)": [p[k] for k in diff.index]})
+    r2 = pd.DataFrame({"yol": [f"R² ({NAMES[k]})" for k in r2z.index], "Z kuşağı β": r2z.values,
+                       "Diğer kuşaklar β": r2d.values, "fark": (r2z - r2d).values,
+                       "p (permütasyon)": np.nan})
+    return pd.concat([out, r2], ignore_index=True)
+
+
+def ipma_analizi(d: pd.DataFrame, pls) -> pd.DataFrame:
+    p = {(a, b): c for a, b, c in pls.paths.itertuples(index=False)}
+    toplam = {
+        "PERF": p[("PERF", "DUYG")] * p[("DUYG", "SAD")] + p[("PERF", "FIY")] * p[("FIY", "SAD")],
+        "CABA": p[("CABA", "DUYG")] * p[("DUYG", "SAD")] + p[("CABA", "FIY")] * p[("FIY", "SAD")],
+        "DUYG": p[("DUYG", "SAD")], "FIY": p[("FIY", "SAD")], "ALS": p[("ALS", "SAD")],
+    }
+    rows = []
+    for lv, imp in toplam.items():
+        w = pls.weights[lv] / pls.weights[lv].sum()
+        x = (d[BLOCKS[lv]] - 1) / 6 * 100
+        rows.append({"yapı": NAMES[lv], "kod": lv, "önem (toplam etki)": imp,
+                     "performans (0-100)": float((x * w.values).sum(axis=1).mean())})
+    return pd.DataFrame(rows)
+
+
+def grafik_mga(mga, path):
+    m = mga[~mga.yol.str.startswith("R²")].copy()
+    fig, ax = plt.subplots(figsize=(11, 4.6))
+    y = np.arange(len(m))[::-1]; h = 0.38
+    ax.barh(y + h / 2, m["Z kuşağı β"], h, color=ORANGE, label="Z kuşağı")
+    ax.barh(y - h / 2, m["Diğer kuşaklar β"], h, color=BLUE, label="Diğer kuşaklar")
+    for yi, r in zip(y, m.itertuples()):
+        top = max(r._2, r._3, 0)
+        renk = RED if r._5 < 0.05 else GREY
+        ax.text(top + 0.02, yi, f"fark {r.fark:+.2f} · {p_lbl(r._5)}", va="center", fontsize=9, color=renk)
+    ax.set_yticks(y, [r.replace("PERF", "Performans").replace("CABA", "Çaba").replace("DUYG", "Duygusal d.")
+                      .replace("FIY", "Fiyat d.").replace("ALS", "Alışkanlık").replace("SAD", "Sadakat")
+                      for r in m.yol])
+    ax.axvline(0, color="black", lw=0.8); ax.set_xlim(min(-0.1, m[["Z kuşağı β", "Diğer kuşaklar β"]].min().min() - 0.05), 1.0)
+    ax.set_xlabel("Standartlaştırılmış yol katsayısı"); ax.legend(loc="lower right")
+    ax.set_title("Model kuşaklarda aynı mı işliyor? (PLS çok gruplu analiz)")
+    fig.tight_layout(); fig.savefig(path, bbox_inches="tight", facecolor="white"); plt.close(fig)
+
+
+def grafik_ipma(ipma, path):
+    fig, ax = plt.subplots(figsize=(8.5, 5.4))
+    xm, ym = ipma["önem (toplam etki)"].mean(), ipma["performans (0-100)"].mean()
+    ax.axvline(xm, color=GREY, ls="--", lw=1); ax.axhline(ym, color=GREY, ls="--", lw=1)
+    for r in ipma.itertuples():
+        imp, perf = r._3, r._4
+        oncelik = imp > xm and perf < ym
+        ax.scatter(imp, perf, s=260, color=RED if oncelik else BLUE, zorder=3, edgecolor="white", lw=2)
+        ax.annotate(r.yapı, (imp, perf), xytext={"PERF": (-10, -20), "CABA": (10, 6)}.get(r.kod, (10, 6)),
+                    ha="right" if r.kod == "PERF" else "left", textcoords="offset points", fontsize=10,
+                    fontweight="bold" if oncelik else "normal")
+    ax.text(0.98, 0.03, "ÖNCELİKLİ ALAN\nyüksek önem · düşük performans", transform=ax.transAxes,
+            ha="right", va="bottom", fontsize=9, color=RED)
+    ax.set_xlabel("Önem: sadakat üzerindeki toplam etki"); ax.set_ylabel("Performans (0–100)")
+    ax.set_xlim(0, ipma["önem (toplam etki)"].max() * 1.3); ax.set_ylim(20, 90)
+    ax.set_title("Önem-performans haritası: sadakat için nereye yatırım yapılmalı?")
     fig.tight_layout(); fig.savefig(path, bbox_inches="tight", facecolor="white"); plt.close(fig)
 
 

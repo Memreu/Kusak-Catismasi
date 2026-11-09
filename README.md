@@ -15,7 +15,7 @@
 
 <p align="center"><img src="results/grafikler/01_pls_model.png" width="90%"></p>
 
-> 🇬🇧 **In English:** A survey study (n = 236) comparing Generation Z with Generations X/Y in their use of food delivery apps, based on an extended UTAUT2 model. All analyses were rebuilt from the original SPSS data in **Python** (a dependency-free PLS-SEM implementation with bootstrapping, t-tests, ANOVA, moderation and mediation) and **R** (lavaan CFA, covariance-based SEM and measurement invariance). Habit is the strongest driver of loyalty (β = 0.40), followed by emotional value and price value; ease of use is the main source of emotional value. Contrary to the "digital native" view, Gen Z reports **lower habit, emotional value and price value** than older generations, and economic perception moderates how much price and emotion translate into loyalty. Raw data are not shared to protect participants; a privacy-preserving synthetic dataset lets anyone run the code.
+> 🇬🇧 **In English:** A survey study (n = 236, adequately powered for medium effects) comparing Generation Z with Generations X/Y in their use of food delivery apps, based on an extended UTAUT2 model. All analyses were rebuilt from the original SPSS data in **Python** (a dependency-free PLS-SEM implementation with bootstrapping, t-tests, ANOVA, moderation and mediation) and **R** (lavaan CFA, covariance-based SEM and measurement invariance). Habit is the strongest driver of loyalty (β = 0.40), followed by emotional value and price value; ease of use is the main source of emotional value. Contrary to the "digital native" view, Gen Z reports **lower habit, emotional value and price value** than older generations, and economic perception moderates how much price and emotion translate into loyalty. A permutation-based multi-group PLS analysis shows that the loyalty mechanism itself is the same across generations, and an importance-performance map identifies habit as the top improvement priority. Raw data are not shared to protect participants; a privacy-preserving synthetic dataset lets anyone run the code.
 
 <details>
 <summary><b>📑 İçindekiler</b></summary>
@@ -23,6 +23,9 @@
 - [Temel bulgular](#temel-bulgular)
 - [Hipotez sonuçları](#hipotez-sonuçları)
 - [Görsel özet](#görsel-özet)
+- [Kuşaklar arası model karşılaştırması](#kuşaklar-arası-model-karşılaştırması)
+- [Önem-performans haritası](#önem-performans-haritası)
+- [Örneklem yeterliliği](#örneklem-yeterliliği)
 - [Yöntem](#yöntem)
 - [İki dilde analiz: Python ve R](#iki-dilde-analiz-python-ve-r)
 - [Kurulum ve çalıştırma](#kurulum-ve-çalıştırma)
@@ -42,6 +45,8 @@
 | 📱 **Z kuşağı "otomatik pilot"ta değil** | Beklenenin aksine Z kuşağının **alışkanlık** (3,50 vs 4,00), **duygusal değer** ve **fiyat değeri** algısı diğer kuşaklardan anlamlı derecede düşük; uygulamayı kullanma kolaylığında fark yok |
 | 📉 **Ekonomik algı dengeyi değiştiriyor** | Ekonomik durumunu kötü algılayanlarda duygusal değerin sadakate etkisi anlamsız, fiyat değerinin etkisi anlamlı. Ekonomik algı iyileştikçe fiyatın etkisi en düşük seviyeye iniyor |
 | 🔄 **Sıklık alışkanlık yaratıyor** | Ayda 0-2 kez sipariş verenlerin alışkanlık skoru 2,96, 12+ kez verenlerinki 5,11 (η² = 0,21) |
+| ⚖️ **Mekanizma aynı, seviye farklı** | Çok gruplu PLS analizinde hiçbir yol katsayısı kuşaklar arasında anlamlı farklılaşmıyor (tüm p > ,13). Kuşaklar sadakate **aynı yoldan** ulaşıyor; Z kuşağını ayıran şey bu yolları besleyen algıların daha düşük olması |
+| 🎯 **Öncelik: alışkanlık** | Önem-performans haritasında alışkanlık sadakate en büyük toplam etkiye (0,40) sahip ama performansı en düşük yapı (100 üzerinden 46). Fiyat değeri ikinci öncelikli alan |
 | ✂️ **Makas etkisine dair bir eğilim** | Z kuşağında kadınlar, diğer kuşaklarda erkekler daha sadık; etkileşim sınırda (p = ,062) |
 
 ## Hipotez sonuçları
@@ -81,6 +86,42 @@ H1–H3: standartlaştırılmış çoklu regresyon; ayrıntılar ve PLS-SEM boot
 
 <p align="center"><img src="results/grafikler/05_olcum_modeli.png" width="95%"></p>
 
+## Kuşaklar arası model karşılaştırması
+
+Araştırmanın asıl sorusu "kuşaklar farklı mı?" olduğu için yapısal model Z kuşağı ve diğer kuşaklar için ayrı ayrı tahmin edildi ve yol katsayıları arasındaki farklar 1.000 permütasyonla test edildi (PLS-MGA).
+
+<p align="center"><img src="results/grafikler/06_kusak_modelleri.png" width="90%"></p>
+
+- **Hiçbir yol anlamlı şekilde farklılaşmıyor.** Sadakat iki grupta da aynı oranda açıklanıyor (R² = 0,45 ve 0,44).
+- Sayısal eğilimler ilginç ama kanıt düzeyinde değil: Z kuşağında duygusal değerin sadakate etkisi daha güçlü (0,33 vs 0,19), diğer kuşaklarda alışkanlığın etkisi daha güçlü (0,48 vs 0,35).
+- **Yorum:** "Kuşak çatışması" sadakatin nasıl oluştuğunda değil, uygulamaya bakışın seviyesinde yaşanıyor. Z kuşağı aynı mekanizmayla çalışıyor ama duygusal değer, fiyat değeri ve alışkanlık algısı daha düşük.
+
+## Önem-performans haritası
+
+Önem-performans haritası (IPMA), her yapının sadakat üzerindeki toplam etkisini (önem) katılımcıların o yapıyı ne kadar olumlu değerlendirdiğiyle (performans, 0–100) karşılaştırarak iyileştirme önceliklerini gösterir.
+
+<p align="center"><img src="results/grafikler/07_onem_performans.png" width="70%"></p>
+
+| Yapı | Önem (toplam etki) | Performans (0–100) | Çıkarım |
+|---|---:|---:|---|
+| Alışkanlık | 0,40 | 46 | 🔴 **Öncelikli alan:** en etkili ama en zayıf. Tek tıkla tekrar sipariş, abonelik ve seri ödülleri gibi rutin oluşturan özellikler |
+| Duygusal değer | 0,28 | 69 | 🟢 Korunmalı: güçlü ve iyi durumda |
+| Fiyat değeri | 0,22 | 57 | 🟠 İkinci öncelik: özellikle teslimat ücreti algısı |
+| Çaba beklentisi | 0,17 | 80 | ⚪ Hijyen faktörü: zaten yüksek, dolaylı etkili |
+| Performans beklentisi | 0,12 | 79 | ⚪ Hijyen faktörü |
+
+## Örneklem yeterliliği
+
+Güç analizi (α = ,05, güç = ,80), 236 kişilik örneklemin modeldeki testler için gerekenin çok üzerinde olduğunu gösteriyor:
+
+| Test | Orta etki için gereken n | Mevcut n | Saptanabilen en küçük etki |
+|---|---:|---:|---|
+| Sadakat modeli (3 yordayıcı) | 77 | 236 | f² = 0,047 (küçük-orta arası) |
+| Değer modelleri (2 yordayıcı) | 68 | 236 | f² = 0,041 |
+| Kuşak karşılaştırması (t-testi) | 128 | 236 (129 + 107) | d = 0,37 |
+
+Örneklem orta büyüklükteki etkileri neredeyse kesin olarak (%97–100 güçle) yakalayabiliyor. Küçük etkiler (f² = 0,02) için ise 500'ü aşkın katılımcı gerekirdi; bu yüzden anlamlı çıkmayan küçük farklar (ör. kuşaklar arası yol farkları) "etki yok" değil, "bu örneklemle saptanamadı" şeklinde yorumlanmalı.
+
 ## Yöntem
 
 | | |
@@ -89,14 +130,14 @@ H1–H3: standartlaştırılmış çoklu regresyon; ayrıntılar ve PLS-SEM boot
 | **Örneklem** | Dikkat kontrolü, ayrıştırma sorusu ("son 6 ayda sipariş verdiniz mi?") ve tekdüze yanıt filtresi sonrası **236 geçerli katılımcı** (Z kuşağı: 129, diğer kuşaklar: 107), 50 il |
 | **Örnekleme** | Kartopu ve kolayda örnekleme; Google Forms ile çevrimiçi anket (~4 dakika) |
 | **Ölçek** | 21 maddelik 7'li Likert: performans (3), çaba (3), duygusal değer (3), fiyat değeri (3), sadakat (3), alışkanlık (4), indirim (1), dikkat kontrolü (1) · [Anket formu](Anket%20Formu.docx) |
-| **Analizler** | Cronbach α, McDonald ω, birleşik güvenilirlik, AVE, HTMT, Fornell-Larcker · χ², t-testi, tek ve iki yönlü ANOVA · çoklu regresyon, moderasyon, bootstrap aracılık · PLS-SEM · CFA, CB-SEM, ölçme değişmezliği |
+| **Analizler** | Cronbach α, McDonald ω, birleşik güvenilirlik, AVE, HTMT, Fornell-Larcker · χ², t-testi, tek ve iki yönlü ANOVA · çoklu regresyon, moderasyon, bootstrap aracılık · PLS-SEM, çok gruplu PLS (permütasyon), önem-performans haritası · CFA, CB-SEM, ölçme değişmezliği · güç analizi |
 
 ## İki dilde analiz: Python ve R
 
 | Dil | Dosya | Ne yapıyor? |
 |---|---|---|
 | 🐍 Python | [`analysis/python/pls_sem.py`](analysis/python/pls_sem.py) | Sıfırdan yazılmış PLS-SEM: Mode A, yol ağırlıklandırma şeması, R², f², ρc, AVE, HTMT, Fornell-Larcker, VIF, bootstrap ile yol ve dolaylı etki testleri. SmartPLS sonuçlarıyla (VIF, f²) birebir uyumlu |
-| 🐍 Python | [`analysis/python/kusak_analiz.py`](analysis/python/kusak_analiz.py) | Tüm hipotez testleri ve grafikler; sonuçları Markdown tablolarına ve JSON'a yazar |
+| 🐍 Python | [`analysis/python/kusak_analiz.py`](analysis/python/kusak_analiz.py) | Tüm hipotez testleri, çok gruplu PLS, önem-performans haritası, güç analizi ve grafikler; sonuçları Markdown tablolarına ve JSON'a yazar |
 | 🐍 Python | [`analysis/python/veri_hazirla.py`](analysis/python/veri_hazirla.py) | SPSS verisini anonim analiz verisine dönüştürür, kodlama hatasını yanıt tablosuyla düzeltir |
 | 🐍 Python | [`analysis/python/sentetik_veri.py`](analysis/python/sentetik_veri.py) | Gizliliği koruyan sentetik veri (Gauss kopula) |
 | 📊 R | [`analysis/R/cfa_sem.R`](analysis/R/cfa_sem.R) | `lavaan` ile doğrulayıcı faktör analizi, kovaryans tabanlı SEM, dolaylı etkiler ve kuşaklar arası ölçme değişmezliği; `psych` ile güvenilirlik |
