@@ -58,12 +58,12 @@
 
 | Hipotez | İlişki | Sonuç | Kanıt |
 |---|---|---|---|
-| H1a | Performans beklentisi → Duygusal değer | ✅ Desteklendi | β = 0,29, p < ,001 |
-| H1b | Performans beklentisi → Fiyat değeri | ✅ Desteklendi (zayıf) | β = 0,15, p = ,034 |
-| H2a | Çaba beklentisi → Duygusal değer | ✅ Desteklendi | β = 0,41, p < ,001 |
-| H2b | Çaba beklentisi → Fiyat değeri | ✅ Desteklendi | β = 0,19, p = ,005 |
-| H3a | Duygusal değer → Sadakat | ✅ Desteklendi | β = 0,32, p < ,001 |
-| H3b | Fiyat değeri → Sadakat | ✅ Desteklendi | β = 0,31, p < ,001 |
+| H1a | Performans beklentisi → Duygusal değer | ✅ Desteklendi | β = 0,31 [0,18; 0,45], p < ,001 · regresyon 0,29 |
+| H1b | Performans beklentisi → Fiyat değeri | ✅ Desteklendi (zayıf) | β = 0,15 [0,01; 0,29], p = ,035 · regresyon 0,15 |
+| H2a | Çaba beklentisi → Duygusal değer | ✅ Desteklendi | β = 0,45 [0,31; 0,58], p < ,001 · regresyon 0,41 |
+| H2b | Çaba beklentisi → Fiyat değeri | ✅ Desteklendi | β = 0,20 [0,05; 0,34], p = ,009 · regresyon 0,19 |
+| H3a | Duygusal değer → Sadakat | ✅ Desteklendi | β = 0,28 [0,15; 0,40], p < ,001 · regresyon 0,32 |
+| H3b | Fiyat değeri → Sadakat | ✅ Desteklendi | β = 0,22 [0,10; 0,35], p = ,001 · regresyon 0,31 |
 | H4a | Z kuşağının alışkanlığı daha yüksektir | ❌ Reddedildi (**ters yönde** anlamlı) | 3,50 vs 4,00; t(234) = −2,64, p = ,009 |
 | H4b | Kuşaklar arasında sadakat farkı vardır | ❌ Reddedildi | p = ,157 |
 | H5a | Alışkanlık, duygusal değer → sadakat ilişkisini düzenler | ❌ Reddedildi | ΔR² = 0,001, p = ,622 |
@@ -71,7 +71,7 @@
 | H6a | Kötü ekonomik algı, fiyat değerinin etkisini güçlendirir | 🟡 Kısmen desteklendi | Moderasyon F(2, 230) = 5,88, p = ,003; fiyatın etkisi iyi algıda en zayıf (β = 0,24) |
 | H6b | İyi ekonomik algı, duygusal değerin etkisini güçlendirir | 🟡 Kısmen desteklendi | Moderasyon p = ,029; kötü algıda etki yok, en güçlü etki orta algıda (β = 0,54) |
 
-H1–H3: standartlaştırılmış çoklu regresyon; ayrıntılar ve PLS-SEM bootstrap sonuçları [`results/tablolar`](results/tablolar) klasöründe.
+H1–H3: PLS-SEM yol katsayıları, köşeli parantezde 2.000 bootstrap örneğiyle %95 güven aralığı ([`14_pls_sem.md`](results/tablolar/14_pls_sem.md)). Karşılaştırma için ayrı ayrı kurulan standartlaştırılmış çoklu regresyonların β'ları da verildi ([`10_regresyon.md`](results/tablolar/10_regresyon.md)). Sadakat yollarında farkın nedeni, PLS modelinde alışkanlığın da sadakatin yordayıcısı olması; regresyonda H3 yalnızca iki yordayıcıyla kuruldu. Bulgular bölümündeki tüm β'lar PLS-SEM'den.
 
 ## Görsel özet
 
